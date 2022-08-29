@@ -1,0 +1,27 @@
+group 'clipboard_test'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+ext.seleniumVersion = '4.4.0'
+ext.cucumberTestngVersion = '7.6.0'
+ext.cucumberReporting = '5.7.2'
+ext.testngVersion = '7.6.1'
+
+dependencies {
+    testImplementation group: 'io.cucumber', name: 'cucumber-jvm-deps', version: '1.0.6'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: cucumberTestngVersion
+    testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: cucumberTestngVersion
+    testImplementation group: 'net.masterthought', name: 'cucumber-reporting', version:cucumberReporting
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version:seleniumVersion
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version:seleniumVersion
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-api', version:seleniumVersion
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version:seleniumVersion
+    testImplementation group: 'org.testng', name: 'testng', version:testngVersion
+}
