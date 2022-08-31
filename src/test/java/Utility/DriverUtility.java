@@ -2,6 +2,8 @@ package Utility;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -27,10 +29,13 @@ public class DriverUtility {
 
         if (!isDriverStarted) {
             // Chrome Capabilities
-            // Capabilities chromeCapabilities = DesiredCapabilities.chrome();
+            DesiredCapabilities capability = new DesiredCapabilities();
+            capability.setCapability(CapabilityType.BROWSER_NAME, "Chrome");
+            capability.setCapability(CapabilityType.PLATFORM_NAME, "ANY");
 
             // create a new instance of the chrome driver
-            this.driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeCapabilities);
+            System.setProperty("webdriver.chrome.driver","/opt/homebrew/bin/chromedriver");
+            this.driver = new ChromeDriver();
             isDriverStarted = true;
         }
     }
