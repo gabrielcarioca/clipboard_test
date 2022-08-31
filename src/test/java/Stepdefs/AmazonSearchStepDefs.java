@@ -1,6 +1,6 @@
 package Stepdefs;
 
-//import PageObjects.*;
+import PageObjects.*;
 import Utility.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -17,33 +17,30 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AmazonSearchStepDefs extends BaseStepDefs{
-    //public HomeScreen homeScreen;
-    //public SignUpModalScreen signUpModalScreen;
-    //public TasksScreen tasksScreen;
-    //public AddTaskModalScreen addTaskModalScreen;
-
-    //private Task lastCreatedTask;
+    public FilterPage filterPage;
 
     @Before(order = 1)
     public void beforeSuite() {
         System.out.println("BeforeTest");
 
-        //homeScreen = new HomeScreen(driver());
-        //signUpModalScreen = new SignUpModalScreen(driver());
-        //tasksScreen = new TasksScreen(driver());
-        //addTaskModalScreen = new AddTaskModalScreen(driver());
-
-        //lastCreatedTask = new Task();
+        filterPage = new FilterPage(driver());
     }
 
     @Given("^User goes to the Amazon page$")
     public void goToAmazonPage() throws MalformedURLException{
         driver().navigate().to(new URL("https://www.amazon.in/"));
-        SeleniumUtility.getInstance().pauseForSeconds(10);
+        filterPage.waitForHamburgerMenuButton();
     }
 
-    @When("^User pauses$")
-    public void userPauses() {
-        SeleniumUtility.getInstance().pauseForSeconds(10);
+    @When("^User opens filter menu$")
+    public void openFilterMenu() {
+        filterPage.getHamburgerMenuButton().click();
+        filterPage.waitForFilterMenuDiv();
+    }
+
+    @And("^User selects section \"([^\"]*)\" under category \"([^\"]*)\"$")
+    public void selectProductFilter(String filterSection, String filterCategory) {
+        filterPage.getFilterSection(filterSection, filterCategory).click();
+        SeleniumUtility.getInstance().pauseForSeconds(5);
     }
 }
