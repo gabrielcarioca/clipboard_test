@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class FilterPage extends AbstractPage {
+public class CategoryFilterPage extends AbstractPage {
 
     @FindBy(id = "nav-hamburger-menu")
     private WebElement hamburgerMenuButton;
@@ -16,7 +16,7 @@ public class FilterPage extends AbstractPage {
     private final String filterSectionLocator = "//li[.='[FILTER_CATEGORY]']/following-sibling::li//a[.='[FILTER_SECTION]']";
     private WebElement filterSection;
 
-    public FilterPage(WebDriver driver) {
+    public CategoryFilterPage(WebDriver driver) {
         super(driver);
     }
 
@@ -39,5 +39,11 @@ public class FilterPage extends AbstractPage {
     public WebElement getFilterSection(String filterSection, String filterCategory) {
         String locatorXpath = filterSectionLocator.replace("[FILTER_CATEGORY]", filterCategory).replace("[FILTER_SECTION]", filterSection);
         return driver.findElement(By.xpath(locatorXpath));
+    }
+
+    public void clickFilterSection(String filterSection, String filterCategory) {
+        WebElement element = getFilterSection(filterSection, filterCategory);
+        waitUtility().waitForElementToBeVisible(driver, element);
+        element.click();
     }
 }
